@@ -1,6 +1,6 @@
 package com.hana.app.frame;
 
-import com.hana.exception.DuplicatedException;
+import com.hana.app.exception.DuplicatedException;
 
 import java.util.List;
 
