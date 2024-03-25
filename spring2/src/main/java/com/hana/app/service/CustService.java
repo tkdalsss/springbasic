@@ -4,11 +4,14 @@ import com.hana.app.data.CustDto;
 import com.hana.app.exception.DuplicatedException;
 import com.hana.app.frame.Dao;
 import com.hana.app.frame.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @org.springframework.stereotype.Service
 public class CustService implements Service<String, CustDto> {
+
+    @Autowired
     Dao<String, CustDto> dao;
 
     @Override
