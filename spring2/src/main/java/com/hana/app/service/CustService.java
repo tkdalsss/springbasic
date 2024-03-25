@@ -4,16 +4,12 @@ import com.hana.app.data.CustDto;
 import com.hana.app.exception.DuplicatedException;
 import com.hana.app.frame.Dao;
 import com.hana.app.frame.Service;
-import com.hana.app.repository.CustDao;
 
 import java.util.List;
 
+@org.springframework.stereotype.Service
 public class CustService implements Service<String, CustDto> {
     Dao<String, CustDto> dao;
-
-    public CustService(Dao dao) {
-        this.dao = dao;
-    }
 
     @Override
     public int add(CustDto custDto) throws DuplicatedException {
