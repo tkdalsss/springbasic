@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 
 @Aspect
 public class LoggerAdvice {
-    @Around("execution(* com.*.*.*Service.*(..))") // insert 등을 실행할 때 해당 관점을 적용하겠다.
+    @Around("execution(* com.*.*.*.*Service.*(..))") // insert 등을 실행할 때 해당 관점을 적용하겠다.
     public Object around(ProceedingJoinPoint process){
         // 함수가 실행될때 걸리는 시간 체크
         Object result = null;
