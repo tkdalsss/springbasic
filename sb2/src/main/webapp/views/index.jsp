@@ -14,9 +14,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="<c:url value="/js/0327.js"/>"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         .fakeimg {
             height: 200px;
@@ -28,17 +31,32 @@
 <div class="jumbotron text-center" style="margin-bottom:0">
     <h1>HTML5 & JavaScript</h1>
 </div>
-<ul class="nav justify-content-end">
-    <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/login" />">LOGIN</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/register" />">REGISTER</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">ABOUT US</a>
-    </li>
-</ul>
+
+<c:choose>
+    <c:when test="${id == null}">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="<c:url value="/login" />">LOGIN</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<c:url value="/register" />">REGISTER</a>
+            </li>
+        </ul>
+    </c:when>
+    <c:otherwise>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="<c:url value="/#" />">${id}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<c:url value="/logout" />">LOGOUT</a>
+            </li>
+        </ul>
+    </c:otherwise>
+</c:choose>
+
+
+
 <%--Start Nav Bar--%>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <a class="navbar-brand" href="<c:url value='/'/>">Home</a>
@@ -48,13 +66,22 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="<c:url value="/html/"/>">HTML</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="<c:url value="/html/"/>">jQuery</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="<c:url value="/html/"/>">Ajax</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<c:url value="/html/"/>">Geo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<c:url value="/html/"/>">Cust</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<c:url value="/html/"/>">Item</a>
             </li>
         </ul>
     </div>
