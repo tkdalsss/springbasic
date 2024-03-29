@@ -2,16 +2,14 @@
   Created by IntelliJ IDEA.
   User: tkdalsss
   Date: 3/27/24
-  Time: 10:33 AM
+  Time: 10:04 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="container">
-    <h2>AJAX1 Page</h2>
+    <h2>Geo Page</h2>
     <h5>Title description, Sep 2, 2017</h5>
     <div class="fakeimg">Fake Image</div>
     <p>Some text..</p>
-    <span>Span</span>
-    <a href="#">A TAG</a>
-<%--    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>--%>
+    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
 </div>

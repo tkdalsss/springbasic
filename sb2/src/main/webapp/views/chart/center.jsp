@@ -2,12 +2,12 @@
   Created by IntelliJ IDEA.
   User: tkdalsss
   Date: 3/27/24
-  Time: 10:34 AM
+  Time: 10:04 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="container">
-    <h2>AJAX3 Page</h2>
+    <h2>Chart Page</h2>
     <h5>Title description, Sep 2, 2017</h5>
     <div class="fakeimg">Fake Image</div>
     <p>Some text..</p>
