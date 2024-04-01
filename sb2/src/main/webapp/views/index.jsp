@@ -21,8 +21,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <%--kakao map API--%>
-    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=9e1c6a20d65fd94d833f6984f6e0f2ba"></script>
-    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=9e1c6a20d65fd94d833f6984f6e0f2ba&libraries=services"></script>
+<%--    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=9e1c6a20d65fd94d833f6984f6e0f2ba"></script>--%>
+<%--    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=9e1c6a20d65fd94d833f6984f6e0f2ba&libraries=services"></script>--%>
+
+    <%-- highchart --%>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     <style>
         .fakeimg {

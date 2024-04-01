@@ -34,13 +34,20 @@
             geo3.getShop();
         },
         getShop: function(){
+            // $.ajax()
+            $.ajax({
+               url: '<c:url value="/geo/getdata"/>',
+               success: function(datas){
+                   geo3.display(datas);
+               }
+            });
             // lat, lng, title, img,
-            let datas = [
-                {'lat': 37.5547611, 'lng': 127.0654625, 'title': '순대국', 'img':'a.jpg', 'target':100},
-                {'lat': 37.5347611, 'lng': 127.0654625, 'title': '파스타', 'img':'b.jpg', 'target':101},
-                {'lat': 37.5147611, 'lng': 127.0654625, 'title': '햄버거', 'img':'c.jpg', 'target':102}
-            ];
-            geo3.display(datas);
+            // let datas = [
+            //     {'lat': 37.5547611, 'lng': 127.0654625, 'title': '순대국', 'img':'a.jpg', 'target':100},
+            //     {'lat': 37.5347611, 'lng': 127.0654625, 'title': '파스타', 'img':'b.jpg', 'target':101},
+            //     {'lat': 37.5147611, 'lng': 127.0654625, 'title': '햄버거', 'img':'c.jpg', 'target':102}
+            // ];
+            // geo3.display(datas);
         },
         display: function(datas){
             let imgSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -55,7 +62,9 @@
                     map: geo3.map,
                     title: item.title,
                     image: markerImage
-                })
+                });
+
+                // 로열티 어필 중요 -> 회사에 왜가고싶어하는지 , 질문이 많이 오지 않는다면 어떻게 자신을 어필할지
 
                 // info window 생성
                 var infoContent = '<h3>' + item.title + '</h3>';
@@ -71,12 +80,13 @@
                 // event
                 kakao.maps.event.addListener(marker, 'mouseover', mouseoverHandler(marker, infowindow));
                 kakao.maps.event.addListener(marker, 'mouseout', mouseoutHandler(marker, infowindow));
-                kakao.maps.event.addListener(marker, 'click', mouseclickHandler(item.target));
+                kakao.maps.event.addListener(marker, 'click', mouseclickHandler(item.id));
 
                 function mouseoverHandler(marker, infowindow) {
-                    return function(){
-                        infowindow.open(geo3.map, marker);
-                    };
+                    infowindow.open(geo3.map, marker);
+                    // return function(){
+                    //     infowindow.open(geo3.map, marker);
+                    // };
                 }
 
                 function mouseoutHandler(marker, infowindow){

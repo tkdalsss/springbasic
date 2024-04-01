@@ -9,12 +9,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <ul class="nav nav-pills flex-column">
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/ajax/ajax1"/>">AJAX1</a>
+        <a class="nav-link" href="<c:url value="/chart/chart1"/>">CHART1</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/ajax/ajax2"/>">AJAX2</a>
+        <a class="nav-link" href="<c:url value="/chart/chart2"/>">CHART2</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/ajax/ajax3"/>">AJAX3</a>
+        <a class="nav-link" href="<c:url value="/chart/chart3"/>">CHART3</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="<c:url value="/chart/chart4"/>">CHART4</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="<c:url value="/chart/chart5"/>">CHART5</a>
     </li>
 </ul>

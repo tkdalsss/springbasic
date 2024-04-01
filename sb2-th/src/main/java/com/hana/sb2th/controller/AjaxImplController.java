@@ -1,14 +1,12 @@
-package com.hana.controller;
+package com.hana.sb2th.controller;
 
-import com.hana.app.data.dto.*;
+import com.hana.sb2th.app.data.dto.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.temporal.ChronoField;
 import java.util.*;
 
 @RestController

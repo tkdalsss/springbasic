@@ -1,7 +1,6 @@
-package com.hana.controller;
+package com.hana.sb2th.controller;
 
-import com.hana.app.data.dto.Chart2Dto;
-import com.hana.app.data.dto.CustDto;
+import com.hana.sb2th.app.data.dto.CustDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
