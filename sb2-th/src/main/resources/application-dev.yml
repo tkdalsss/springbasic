@@ -7,5 +7,5 @@ logging:
 
 app:
   dir:
-    imgdir: 
-    logdir:
+    imgdir: file:///Users/tkdalsss/Desktop
+    logdir: file:///Users/tkdalsss/Desktop

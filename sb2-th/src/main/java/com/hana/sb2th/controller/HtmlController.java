@@ -15,7 +15,7 @@ public class HtmlController {
 
     String dir = "html/";
 
-    @RequestMapping("/")
+    @RequestMapping("")
     public String main(Model model) {
         model.addAttribute("left", dir + "left");
         model.addAttribute("center", dir + "center");

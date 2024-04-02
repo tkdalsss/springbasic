@@ -19,7 +19,7 @@ public class MainController {
 
     @RequestMapping("/login")
     public String login(Model model) {
-        model.addAttribute("center", "login");
+        model.addAttribute("center", "login/login");
         return "index";
     }
 
@@ -35,7 +35,7 @@ public class MainController {
 //            model.addAttribute("center", "center");
         } else {
             log.info("Login Failed...");
-            model.addAttribute("center", "loginFail");
+            model.addAttribute("center", "login/loginFail");
         }
         return "index";
     }
@@ -51,7 +51,7 @@ public class MainController {
 
     @RequestMapping("/register")
     public String register(Model model) {
-        model.addAttribute("center", "register");
+        model.addAttribute("center", "login/register");
         return "index";
     }
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h2>HTML3 Page</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>PWD</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c: ${custs}">
+            <td><a th:href="@{/html/html3/get(id=${c.id})}" th:text="${c.id}"></a></td>
+            <td th:text="${c.pwd}"></td>
+            <td th:text="${c.name}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
