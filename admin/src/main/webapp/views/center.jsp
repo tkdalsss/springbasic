@@ -11,6 +11,85 @@
 <head>
     <title>Title</title>
 </head>
+<script>
+    let center = {
+        init: function(){
+            const defaultData = '${chartUrl}/logs/custinfo.log';
+            const urlInput = document.getElementById('fetchURL');
+            const pollingCheckbox = document.getElementById('enablePolling');
+            const pollingInput = document.getElementById('pollingTime');
+
+            function createChart() {
+                Highcharts.chart('live_chart', {
+                    chart: {
+                        type: 'areaspline'
+                    },
+                    title: {
+                        text: 'Live Data'
+                    },
+                    accessibility: {
+                        announceNewData: {
+                            enabled: true,
+                            minAnnounceInterval: 15000,
+                            announcementFormatter: function (
+                                allSeries,
+                                newSeries,
+                                newPoint) {
+                                if (newPoint) {
+                                    return 'New point added. Value: ' + newPoint.y;
+                                }
+                                return false;
+                            }
+                        }
+                    },
+                    plotOptions: {
+                        areaspline: {
+                            color: '#32CD32',
+                            fillColor: {
+                                linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+                                stops: [
+                                    [0, '#32CD32'],
+                                    [1, '#32CD3200']
+                                ]
+                            },
+                            threshold: null,
+                            marker: {
+                                lineWidth: 1,
+                                lineColor: null,
+                                fillColor: 'white'
+                            }
+                        }
+                    },
+                    data: {
+                        csvURL: '${chartUrl}/logs/custinfo.log',
+                        enablePolling: true,
+                        dataRefreshRate: 1
+                    }
+                });
+
+                pollingInput.value=1;
+
+                // if (pollingInput.value < 1 || !pollingInput.value) {
+                //     pollingInput.value = 1;
+                // }
+            }
+
+            // urlInput.value = defaultData;
+
+            // We recreate instead of using chart update to make sure the loaded CSV
+            // and such is completely gone.
+            // pollingCheckbox.onchange = urlInput.onchange =
+            //     pollingInput.onchange = createChart;
+
+            // Create the chart
+            createChart();
+        }
+    };
+
+    $(function() {
+        center.init();
+    });
+</script>
 <body>
 <div class="container-fluid">
 
@@ -119,26 +198,29 @@
                 <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                             aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
+<%--                    <div class="dropdown no-arrow">--%>
+<%--                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"--%>
+<%--                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
+<%--                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>--%>
+<%--                        </a>--%>
+<%--                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"--%>
+<%--                             aria-labelledby="dropdownMenuLink">--%>
+<%--                            <div class="dropdown-header">Dropdown Header:</div>--%>
+<%--                            <a class="dropdown-item" href="#">Action</a>--%>
+<%--                            <a class="dropdown-item" href="#">Another action</a>--%>
+<%--                            <div class="dropdown-divider"></div>--%>
+<%--                            <a class="dropdown-item" href="#">Something else here</a>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
+                    <div id="live_chart">
+
                     </div>
+<%--                    <div class="chart-area">--%>
+<%--                        <canvas id="myAreaChart"></canvas>--%>
+<%--                    </div>--%>
                 </div>
             </div>
         </div>

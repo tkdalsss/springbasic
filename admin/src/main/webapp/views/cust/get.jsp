@@ -13,6 +13,29 @@
     <!-- Custom styles for this page -->
     <link href="<c:url value="/vendor/datatables/dataTables.bootstrap4.min.css"/>" rel="stylesheet">
 </head>
+<script>
+    let cust_get = {
+      init: function(){},
+      update: function(id){
+          let c = confirm("수정하시겠습니까?");
+          if (c == true) {
+              location.href = '<c:url value="/cust/get/"/>' + id;
+          }
+      },
+      delete: function(id){
+          let c = confirm("삭제하시겠습니까?");
+          if (c == true) {
+              $.ajax({
+                  url:'<c:url value="/cust/delete"/>',
+                  data: {"id":id}
+              });
+          }
+      }
+    };
+    $(function(){
+
+    })
+</script>
 <body>
 <div class="container-fluid">
 
@@ -35,6 +58,8 @@
                         <th>ID</th>
                         <th>PWD</th>
                         <th>NAME</th>
+                        <th>UPDATE</th>
+                        <th>DELETE</th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -42,14 +67,22 @@
                         <th>ID</th>
                         <th>PWD</th>
                         <th>NAME</th>
+                        <th>UPDATE</th>
+                        <th>DELETE</th>
                     </tr>
                     </tfoot>
                     <tbody>
                     <c:forEach var="c" items="${custs}">
                         <tr>
-                            <td>${c.id}</td>
+                            <td><a href="<c:url value="/cust/get/${c.id}"/>">${c.id}</a></td>
                             <td>${c.pwd}</td>
                             <td>${c.name}</td>
+                            <td>
+                                <button onclick="cust_get.update('${c.id}')" type="button" class="btn btn-primary">Update</button>
+                            </td>
+                            <td>
+                                <button onclick="cust_get.delete('${c.id}')" type="button" class="btn btn-danger">Delete</button>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -39,9 +39,21 @@ dependencies {
     // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
+    // mybatis & mysql
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // mybatis - logback
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+
+    // Mysql handler
+    implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
+
     // test
     testImplementation 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+
+
 }
 
 tasks.named('test') {

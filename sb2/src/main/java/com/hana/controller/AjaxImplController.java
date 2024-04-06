@@ -1,18 +1,28 @@
 package com.hana.controller;
 
 import com.hana.app.data.dto.*;
+import com.hana.app.service.AddrService;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.temporal.ChronoField;
 import java.util.*;
 
 @RestController
+@RequiredArgsConstructor
+@Slf4j
 public class AjaxImplController {
+
+    private final AddrService addrService;
 
     @RequestMapping("/getServerTime")
     public Object getServerTime() {
@@ -125,6 +135,25 @@ public class AjaxImplController {
                 Arrays.asList(21908, 5548, 8105, 11248, 8989, 11816, 18274, 17300, 13053, 11906, 10073)));
 
         return list;
+    }
+
+    @RequestMapping("/getAddr/{id}")
+    public List<AddrDto> getCustAddrList(@PathVariable("id") String id) throws Exception {
+        return addrService.getCustAddr(id);
+//        return addrService.get();
+    }
+
+    @RequestMapping("/myPage/addAddr")
+    public ResponseEntity<String> addAddr(@RequestBody AddrDto addrDto, HttpServletResponse response) throws Exception {
+        log.info(addrDto.toString());
+        try {
+            addrService.add(addrDto);
+            response.setHeader("Location",addrDto.getCustId() );
+            return new ResponseEntity<String>(HttpStatus.FOUND);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 //    @RequestMapping("/chart/getChart3data2")

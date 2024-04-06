@@ -30,11 +30,27 @@ dependencies {
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    //tomcat
+    //tomcat & JSP
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     implementation 'jakarta.servlet:jakarta.servlet-api'
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+
+    // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+    // mybatis & mysql
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // mybatis - logback
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+
+    // Mysql handler
+    implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
+
+//    implementation 'commons-io:commons-io:2.11.0'    /* Apache commons-io */
+//    implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4' /* Apache Commons FileUpload */
 
     // test
     testImplementation 'org.projectlombok:lombok'
