@@ -1,6 +1,8 @@
 package com.hana.controller;
 
+import com.hana.app.data.dto.BoardDto;
 import com.hana.app.data.dto.CustDto;
+import com.hana.app.service.BoardService;
 import com.hana.app.service.CustService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Random;
 
 @Controller
@@ -19,12 +23,19 @@ import java.util.Random;
 public class MainController {
 
     private final CustService custService;
+    private final BoardService boardService;
 
     @RequestMapping("/")
-    public String main() {
-        Random r = new Random();
-        int num = r.nextInt(100) + 1;
-        log.info(num + "");
+    public String main(Model model) {
+        List<BoardDto> list = null;
+
+        try {
+            list = boardService.getRank();
+            model.addAttribute("ranks", list);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+
         return "index";
     }
 
@@ -47,7 +58,7 @@ public class MainController {
             }
             if (!custDto.getPwd().equals(pwd)) {
                 log.info("Login Failed...");
-                model.addAttribute("center", "loginFail");
+//                model.addAttribute("center", "loginFail");
                 throw new Exception();
             }
             log.info("Login Success!");
@@ -55,7 +66,8 @@ public class MainController {
             session.setAttribute("id", id);
 
         } catch (Exception e) {
-            model.addAttribute("center", "loginFail");
+            model.addAttribute("errorMsg", "ID 또는 PW가 일치하지 않습니다.");
+            model.addAttribute("center", "login");
         }
         return "index";
     }
@@ -65,7 +77,7 @@ public class MainController {
         // Single-Sign on
         if (session != null) session.invalidate();
         log.info("LogOut...");
-        return "index";
+        return "redirect:/";
     }
 
     @RequestMapping("/register")
@@ -88,6 +100,17 @@ public class MainController {
 
         model.addAttribute("center", "center");
         return "index";
+    }
+
+    @ResponseBody
+    @RequestMapping("/registerIdCheck")
+    public Object checkDuplicateId(Model model, @RequestParam("id") String id) throws Exception {
+        String result = "0";
+        CustDto custDto = custService.get(id);
+        if (custDto == null) {
+            result = "1";
+        }
+        return result;
     }
 
 }

@@ -8,8 +8,38 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
+    let register = {
+        url: '',
+        init:function(url) {
+            this.url = url;
+            $('#register_form #btn_id_check').click(() => {
+                let id = $('#id').val();
+                if(id == '' || id == null) {
+                    alert('ID를 입력하세요');
+                    return;
+                }
+
+                $.ajax({
+                    url: '<c:url value="/registerIdCheck"/>',
+                    data: {'id': id},
+                    success: (result) => {
+                        let msg = '사용 가능합니다.';
+                        if (result == '0') {
+                            msg = '사용 불가능합니다.';
+                        }
+                        $('#check_msg').html(msg);
+                    }
+                })
+            });
+
+            $('#register_form > #btn_register').click(function() {
+
+            });
+        }
+    }
     $(function(){
         reg.init("<c:url value="/registerImpl"/>");
+        register.init();
     });
 </script>
 <div class="container">
@@ -18,6 +48,8 @@
         <div class="form-group">
             <label for="id">ID:</label>
             <input type="text" class="form-control" id="id" placeholder="Enter ID" name="id">
+            <span id="check_msg"></span>
+            <button id="btn_id_check" type="button" class="btn btn-warning">CHECK ID</button>
         </div>
         <div class="form-group">
             <label for="pwd">Password:</label>
@@ -32,6 +64,6 @@
                 <input class="form-check-input" type="checkbox" name="remember"> Remember me
             </label>
         </div>
-        <button type="submit" class="btn btn-primary" id="registerBtn">Register</button>
+        <button id="btn_register" type="submit" class="btn btn-primary">Register</button>
     </form>
 </div>

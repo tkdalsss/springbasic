@@ -105,19 +105,9 @@ public class ItemController {
 //            FileUploadUtil.saveFile(itemDto.getImage(), imgdir);
 //        }
 //
-//        itemService.modify(itemDto);
+        itemService.modify(itemDto);
 
-        if (itemDto.getImage().isEmpty()) {
-            itemService.modify(itemDto);
-        } else {
-            // 현재 디렉토리 내에서 같은 이름의 파일이 있는지 확인해서 같은 이름이 있다면 item(1).png 형식으로 출력
-            String checkDuplicateImgName = FileUploadUtil.changeDuplicateImageName(itemDto.getImage(), imgdir);
 
-            itemDto.setImgName(checkDuplicateImgName);
-            itemService.modify(itemDto);
-
-            FileUploadUtil.saveFileChangingName(itemDto.getImage(), imgdir, checkDuplicateImgName);
-        }
 
         // 이미지 이름이 중복이지만 item(2).jpg 의 형식으로 처리하고 싶음
         // 일단은 FileUploadUtil 에서 중복 이름의 이미지가 있는지 확인해야 하고

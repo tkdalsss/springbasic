@@ -8,6 +8,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
+    let custAdd = {
+        init: function() {
+            $('#id').keyup(function() {
+                let id = $(this).val();
+                custAdd.send(id);
+            });
+        },
+        send: function(id) {
+            $.ajax({
+                url: '<c:url value="/cust/checkId"/>',
+                data: {'id': id},
+                success: function(data) {
+                    custAdd.display(data, id);
+                }
+            })
+        },
+        display: function(data, id) {
+            let result = 'is Existed';
+            if (data) result = 'is not Existed';
+            $('#id_span').text(id + ' ' + result);
+        }
+    }
     let detail = {
         init: function () {
             $('#register_form > button').click(() => {
@@ -21,6 +43,7 @@
     };
     $(function () {
         detail.init();
+        custAdd.init();
     })
 </script>
 <html>
@@ -45,6 +68,7 @@
                     <div class="form-group">
                         <label for="id">ID:</label>
                         <input type="text" class="form-control" id="id" placeholder="Enter ID" name="id">
+                        <span id="id_span"></span>
                     </div>
                     <div class="form-group">
                         <label for="pwd">Password:</label>

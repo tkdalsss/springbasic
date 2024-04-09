@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import java.util.ArrayList;
@@ -101,6 +102,15 @@ public class CustController {
             throw new RuntimeException(e);
         }
         return "redirect:/cust/get";
+    }
+
+    @ResponseBody
+    @RequestMapping("/checkId")
+    public Object checkId(@RequestParam("id") String id) throws Exception {
+        boolean result = true;
+        CustDto custDto = custService.get(id);
+        if (custDto != null) result = false;
+        return result;
     }
 
 //    DispatcherServlet

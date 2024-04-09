@@ -30,6 +30,11 @@
                 <input class="form-check-input" type="checkbox" name="remember"> Remember me
             </label>
         </div>
+        <c:if test="${errorMsg != null}">
+            <div class="form-group">
+                <span class="text-danger">${errorMsg}</span>
+            </div>
+        </c:if>
         <button type="submit" class="btn btn-primary" id="login">LOGIN</button>
     </form>
 </div>

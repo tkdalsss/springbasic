@@ -17,7 +17,7 @@
         INSERT INTO db_addr VALUES (#{addrId},#{addrName},#{addrDetail}, #{custId})
     </insert>
     <update id="update" parameterType="AddrDto">
-        UPDATE db_addr SET addr_name = #{addrName},addr_detail = #{addrDetail}, cust_id = #{custId} WHERE addr_id=#{addrId}
+        UPDATE db_addr SET addr_name = #{addrName}, addr_detail = #{addrDetail}, cust_id = #{custId} WHERE addr_id=#{addrId}
     </update>
     <delete id="delete" parameterType="Long">
         DELETE FROM db_addr WHERE addr_id=#{addrId}

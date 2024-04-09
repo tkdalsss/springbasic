@@ -25,6 +25,21 @@
     <!-- Custom styles for this template-->
     <link href="<c:url value="/css/sb-admin-2.min.css"/>" rel="stylesheet">
 </head>
+<script>
+    let left = {
+      init: function() {
+          $('#btn_board_add').click(() => {
+              if ('${sessionScope.id}' == '' || '${sessionScope.id}' == null) {
+                  $('#btn_board_add').removeAttr('href');
+                  alert('로그인 하셔야 합니다.');
+              }
+          });
+      }
+    };
+    $(function() {
+        left.init();
+    })
+</script>
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
@@ -36,7 +51,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Custom Components:</h6>
                 <a class="collapse-item" href="<c:url value="/html"/>">HTML</a>
-                <a class="collapse-item" href="<c:url value="/jquery"/>">jQUery</a>
+                <a class="collapse-item" href="<c:url value="/jquery"/>">jQuery</a>
                 <a class="collapse-item" href="<c:url value="/ajax"/>">Ajax</a>
                 <a class="collapse-item" href="<c:url value="/geo"/>">Geo</a>
                 <a class="collapse-item" href="<c:url value="/chart"/>">Chart</a>
@@ -49,7 +64,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <span>Cust / Item</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -61,4 +76,18 @@
             </li>
         </c:when>
     </c:choose>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Board</span>
+        </a>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Board Components:</h6>
+                <a id="btn_board_add" class="collapse-item" href="<c:url value="/board/add"/>">Board Add</a>
+                <a class="collapse-item" href="<c:url value="/board/get"/>">Board Get</a>
+            </div>
+        </div>
+    </li>
 </ul>

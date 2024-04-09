@@ -37,7 +37,19 @@ public class ItemService implements HanaService<Integer, ItemDto> {
 
     @Override
     public int modify(ItemDto itemDto) throws Exception {
-        return itemRepository.update(itemDto);
+        if (itemDto.getImage().isEmpty()) {
+            return itemRepository.update(itemDto);
+        } else {
+            // 현재 디렉토리 내에서 같은 이름의 파일이 있는지 확인해서 같은 이름이 있다면 item(1).png 형식으로 출력
+            String checkDuplicateImgName = FileUploadUtil.changeDuplicateImageName(itemDto.getImage(), imgdir);
+
+            itemDto.setImgName(checkDuplicateImgName);
+            int u = itemRepository.update(itemDto);
+
+            FileUploadUtil.saveFileChangingName(itemDto.getImage(), imgdir, checkDuplicateImgName);
+            return u;
+        }
+//        return itemRepository.update(itemDto);
     }
 
     @Override

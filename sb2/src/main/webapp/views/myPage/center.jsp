@@ -102,6 +102,30 @@
             <div id="addrList"></div>
         </div>
 
+        <div>
+            작성 게시글 목록
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>title</th>
+                    <th>Register Date</th>
+                    <th>조회수</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="b" items="${boardList}">
+                    <tr>
+                        <td><a href="<c:url value="/board/detail?id=${b.boardId}"/>">${b.boardId}</a></td>
+                        <td>${b.boardTitle}</td>
+                        <td>${b.boardRegdate}</td>
+                        <td>${b.boardCnt}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </body>
 </html>

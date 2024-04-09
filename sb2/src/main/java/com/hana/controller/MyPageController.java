@@ -1,8 +1,10 @@
 package com.hana.controller;
 
 import com.hana.app.data.dto.AddrDto;
+import com.hana.app.data.dto.BoardDto;
 import com.hana.app.data.dto.CustDto;
 import com.hana.app.service.AddrService;
+import com.hana.app.service.BoardService;
 import com.hana.app.service.CustService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ public class MyPageController {
 
     private final CustService custService;
     private final AddrService addrService;
+    private final BoardService boardService;
 
     String dir = "myPage/";
 
@@ -30,13 +33,16 @@ public class MyPageController {
         log.info("TEST");
         CustDto custDto = null;
 //        List<AddrDto> addrList = null;
+        List<BoardDto> boardList = null;
         try {
             custDto = custService.get(id);
+            boardList = boardService.getByCustId(id);
 //            addrList = addrService.get();
         } catch (Exception e) {
             throw new RuntimeException();
         }
         model.addAttribute("cust", custDto);
+        model.addAttribute("boardList", boardList);
         model.addAttribute("left", dir + "left");
         model.addAttribute("center", dir + "center");
         return "index";
