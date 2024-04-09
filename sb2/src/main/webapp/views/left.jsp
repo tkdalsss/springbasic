@@ -70,7 +70,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="<c:url value="/cust/add"/>">Add Cust</a>
-                        <a class="collapse-item" href="<c:url value="/cust/get"/>">Get Cust List</a>
+                        <a class="collapse-item" href="<c:url value="/cust/allpage?pageNo=1"/>">Get Cust List</a>
                     </div>
                 </div>
             </li>
@@ -87,6 +87,7 @@
                 <h6 class="collapse-header">Board Components:</h6>
                 <a id="btn_board_add" class="collapse-item" href="<c:url value="/board/add"/>">Board Add</a>
                 <a class="collapse-item" href="<c:url value="/board/get"/>">Board Get</a>
+                <a class="collapse-item" href="<c:url value="/board/allpage?pageNo=1"/>">Board All Get</a>
             </div>
         </div>
     </li>

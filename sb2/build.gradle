@@ -49,6 +49,9 @@ dependencies {
     // Mysql handler
     implementation 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
 
+    // pageing
+    implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.6'
+
     // test
     testImplementation 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'

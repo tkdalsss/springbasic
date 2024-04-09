@@ -1,5 +1,6 @@
 package com.hana.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.hana.app.data.dto.CustDto;
 import com.hana.app.service.CustService;
 import jakarta.servlet.http.HttpSession;
@@ -75,6 +76,21 @@ public class CustController {
         model.addAttribute("left", dir + "left");
         model.addAttribute("center", dir + "get");
 
+        return "index";
+    }
+
+    @RequestMapping("/allpage")
+    public String allpage(Model model, @RequestParam("pageNo") int pageNo) {
+        PageInfo<CustDto> p;
+        try {
+            p = new PageInfo<>(custService.getPage(pageNo), 5);
+            model.addAttribute("cpage", p);
+            model.addAttribute("target", "/cust/");
+            model.addAttribute("left", "left");
+            model.addAttribute("center", dir + "allpage");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return "index";
     }
 

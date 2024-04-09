@@ -5,8 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -20,4 +20,6 @@ public class BoardDto {
     private LocalDateTime boardRegdate;
     private LocalDateTime boardUpdate;
     private int boardCnt;
+    private int commentCnt;
+    private List<CommentDto> commentList;
 }

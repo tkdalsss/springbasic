@@ -52,7 +52,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Board Detail</h1>
+<%--    <h1 class="h3 mb-2 text-gray-800">Board Detail</h1>--%>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -62,7 +62,10 @@
                 <h5 class="m-0 font-weight-bold text-primary">Board Detail Page</h5>
             </div>
             <div class="col-sm-2">
-                <p class="m-0 font-weight-bold text-black-50">Board ID - ${board.boardId}</p>
+                <div>
+                    <p class="m-0 font-weight-bold text-black-50">Board ID - ${board.boardId}</p>
+                    <p class="m-0 font-weight-bold text-black-50">작성자 - ${board.custId}</p>
+                </div>
             </div>
             <c:choose>
                 <c:when test="${board.custId == sessionScope.id}">
@@ -95,21 +98,48 @@
         <div class="card-body">
             <div class="table-responsive">
                 <form id="board_update_form">
-                    <div class="form-group">
-                        <label for="id">Board ID</label>
-                        <input type="text" readonly="readonly" value="${board.boardId}" class="form-control" id="id" placeholder="Enter id" name="boardId">
+<%--                    <div class="form-group">--%>
+<%--                        <label for="id">Board ID</label>--%>
+<%--                        <input type="text" readonly="readonly" value="${board.boardId}" class="form-control" id="id" placeholder="Enter id" name="boardId">--%>
 
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Title</label>
-                        <input type="text"  value="${board.boardTitle}"  class="form-control" id="name" placeholder="Enter name" name="boardTitle">
+<%--                    </div>--%>
+<%--    <div class="form-group">--%>
+<%--        <label for="name">Title</label>--%>
+<%--        <input type="text" value="${board.boardTitle}"  class="form-control" id="name" placeholder="Enter name" name="boardTitle">--%>
 
-                    </div>
-                    <div class="form-group">
-                        <label for="price">Content</label>
-                        <input type="text" value="${board.boardContent}"  class="form-control" id="price" placeholder="Enter name" name="itemPrice">
+<%--    </div>--%>
+<%--    <div class="form-group">--%>
+<%--        <label for="content">Content</label>--%>
+<%--        <textarea rows="10" id="content" class="form-control" name="boardContent">${board.boardContent}</textarea>--%>
 
-                    </div>
+<%--    </div>--%>
+                    <c:choose>
+                        <c:when test="${board.custId != sessionScope.id}">
+                            <div class="form-group">
+                                <label for="name">Title</label>
+                                <input type="text" readonly value="${board.boardTitle}"  class="form-control" id="name" placeholder="Enter name" name="boardTitle">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="content">Content</label>
+                                <textarea rows="10" readonly id="content" class="form-control" name="boardContent">${board.boardContent}</textarea>
+
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="form-group">
+                                <label for="name">Title</label>
+                                <input type="text" value="${board.boardTitle}"  class="form-control" id="name" placeholder="Enter name" name="boardTitle">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="content">Content</label>
+                                <textarea rows="10" id="content" class="form-control" name="boardContent">${board.boardContent}</textarea>
+
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+
                     <input type="hidden" name="boardId" value="${board.boardId}">
 
 <%--                    <div class="form-group">--%>
@@ -128,6 +158,37 @@
                     </c:choose>
 
                 </form>
+
+                <c:choose>
+                    <c:when test="${board.commentList != []}">
+                        <table class="table table-striped" id="comment_table">
+                            <thead>
+                            <tr>
+                                <th>Content</th>
+                                <th>CustID</th>
+                                <th>RegDate</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="c" items="${board.commentList}">
+                                    <tr>
+                                        <td>${c.commentContent}</td>
+                                        <td>${c.custId}</td>
+                                        <td>
+                                            <fmt:parseDate value="${c.commentRegdate}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both"/>
+                                            <fmt:formatDate pattern="yyyy년 MM월 dd일 HH시 mm분" value="${parsedDateTime}"/>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </c:when>
+                    <c:otherwise>
+                        <p>해당 게시물에는 등록된 댓글이 없습니다</p>
+                    </c:otherwise>
+                </c:choose>
+                <%-- comment list --%>
+
             </div>
         </div>
     </div>

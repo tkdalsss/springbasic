@@ -17,6 +17,11 @@
         get.init();
     })
 </script>
+<style>
+    .comment {
+        color: red; !important;
+    }
+</style>
 <html>
 <head>
     <title>Title</title>
@@ -43,7 +48,12 @@
     <c:forEach var="b" items="${boardList}">
         <tr>
             <td><a href="<c:url value="/board/detail?id=${b.boardId}"/>">${b.boardId}</a></td>
-            <td>${b.boardTitle}</td>
+            <td>
+                    ${b.boardTitle}
+                <c:if test="${b.commentCnt > 0}">
+                    <span id="comment" class="text-danger">[${b.commentCnt}]</span>
+                </c:if>
+            </td>
 <%--            <td>${b.boardRegdate}</td>--%>
             <td>
                 <fmt:parseDate value="${b.boardRegdate}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both"/>
