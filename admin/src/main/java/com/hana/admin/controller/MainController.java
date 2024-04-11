@@ -28,6 +28,12 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/websocket")
+    public String webSocket(Model model) {
+        model.addAttribute("center", "websocket");
+        return "index";
+    }
+
     @RequestMapping("/loginImpl")
     public String adminLogin(Model model, AdminDto adminDto, HttpSession session) {
         AdminDto checkDto = null;

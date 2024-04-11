@@ -29,8 +29,11 @@ public class MainController {
     private final CustService custService;
     private final BoardService boardService;
 
-    @Value("${app.wkey}")
+    @Value("${app.key.wkey}")
     String wkey;
+
+    @Value("${app.key.owkey}")
+    String owkey;
 
     @RequestMapping("/")
     public String main(Model model) {
@@ -124,6 +127,18 @@ public class MainController {
     @RequestMapping("/wh")
     public Object wh(Model model) throws IOException, ParseException {
         return WeatherUtil.getWeather("109", wkey);
+    }
+
+    @RequestMapping("/openWeatherMap")
+    public String owm(Model model) {
+        model.addAttribute("center", "openWeatherMap");
+        return "index";
+    }
+
+    @ResponseBody
+    @RequestMapping("/owm")
+    public Object owm(@RequestParam("loc") String loc) throws IOException, ParseException {
+        return WeatherUtil.getWeather2(loc, owkey);
     }
 
 }
