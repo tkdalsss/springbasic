@@ -35,6 +35,9 @@ public class MainController {
     @Value("${app.key.owkey}")
     String owkey;
 
+    @Value("${app.url.server-url}")
+    String serverUrl;
+
     @RequestMapping("/")
     public String main(Model model) {
         List<BoardDto> list = null;
@@ -127,6 +130,13 @@ public class MainController {
     @RequestMapping("/wh")
     public Object wh(Model model) throws IOException, ParseException {
         return WeatherUtil.getWeather("109", wkey);
+    }
+
+    @RequestMapping("/chat")
+    public Object chat(Model model) {
+        model.addAttribute("serverUrl", serverUrl);
+        model.addAttribute("center", "chat");
+        return "index";
     }
 
     @RequestMapping("/openWeatherMap")

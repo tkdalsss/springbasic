@@ -19,17 +19,18 @@ public class MainController {
 
     private final AdminService adminService;
 
-    @Value("${app.url.chart-url}")
-    String chartUrl;
+    @Value("${app.url.server-url}")
+    String serverUrl;
 
     @RequestMapping("/")
     public String main(Model model) {
-        model.addAttribute("chartUrl", chartUrl);
+        model.addAttribute("chartUrl", serverUrl);
         return "index";
     }
 
     @RequestMapping("/websocket")
     public String webSocket(Model model) {
+        model.addAttribute("serverUrl", serverUrl);
         model.addAttribute("center", "websocket");
         return "index";
     }

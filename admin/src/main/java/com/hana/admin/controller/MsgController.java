@@ -19,6 +19,7 @@ public class MsgController {
     @MessageMapping("/receiveall")
     public void receiveall(Msg msg, SimpMessageHeaderAccessor headerAccessor) {
         log.info(msg.toString());
+        // /send 를 기다리고 있는 모든 대상에게 msg 전달
         template.convertAndSend("/send", msg);
     }
 
@@ -34,6 +35,7 @@ public class MsgController {
         String id = msg.getSendid();
         String target = msg.getReceiveid();
         log.info("------------------");
+//        log.info(msg.toString());
         log.info(target);
 
         template.convertAndSend("/sent/to/" + target, msg);

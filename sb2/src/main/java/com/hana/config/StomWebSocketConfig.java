@@ -1,4 +1,4 @@
-package com.hana.admin.config;
+package com.hana.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -13,9 +13,8 @@ public class StomWebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // 허용한 url 을 /ws로 들어올 수 있게 한다
-//        registry.addEndpoint("/ws").setAllowedOrigins("http://127.0.0.1").withSockJS();
-//        registry.addEndpoint("/ws").setAllowedOrigins("http://172.16.20.55").withSockJS();
-        registry.addEndpoint("/ws").setAllowedOriginPatterns("*").withSockJS();
+        registry.addEndpoint("/ws").setAllowedOrigins("http://127.0.0.1").withSockJS();
+        registry.addEndpoint("/ws").setAllowedOrigins("http://172.16.20.55").withSockJS();
 //        registry.addEndpoint("/chbot").setAllowedOrigins("http://127.0.0.1").withSockJS();
 //        registry.addEndpoint("/wss").setAllowedOrigins("http://127.0.0.1").withSockJS();
     }

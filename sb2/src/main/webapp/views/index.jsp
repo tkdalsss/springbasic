@@ -33,6 +33,10 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
+    <%-- Web Socket --%>
+    <script src="<c:url value="/webjars/sockjs-client/sockjs.min.js"/>"></script>
+    <script src="<c:url value="/webjars/stomp-websocket/stomp.min.js"/>"></script>
+
     <style>
         .container {
             color: black !important;
@@ -67,6 +71,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/logout" />">LOGOUT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<c:url value="/chat" />">Chat</a>
             </li>
         </ul>
     </c:otherwise>
