@@ -107,7 +107,8 @@
         }
     };
     $(function () {
-        websocket.init();
+        // websocket.init();
+        // socket.init();
     })
 </script>
 <div class="container">

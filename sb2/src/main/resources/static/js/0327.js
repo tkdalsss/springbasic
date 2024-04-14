@@ -6,6 +6,8 @@ var datas = [
     {"id":"id05", "pwd":"pwd05", "name":"james5"}
 ];
 
+
+
 // login
 let login = {
     init: function(url){
@@ -80,3 +82,35 @@ let html2 = {
         $('#cust_tb > tbody').html(result);
     }
 };
+
+// const Web
+
+// let websocket = {
+//     stompClient:null,
+//     init:function() {
+//         let socket = new SockJS('http://172.16.20.55:81/ws');
+//         this.stompClient = Stomp.over(socket);
+//
+//         this.stompClient.connect({}, function(frame) {
+//             websocket.setConnected(true);
+//             console.log('Connected: ' + frame);
+//             this.subscribe('/send', function(msg) {
+//                 console.log(msg);
+//                 // "<h4>" + JSON.parse(msg.body).sendid +":"+
+//                 // JSON.parse(msg.body).content1
+//                 // + "</h4>"
+//             });
+//             this.subscribe('/send/'+sid, function(msg) {
+//                 $("#me").prepend(
+//                     "<h4>" + JSON.parse(msg.body).sendid +":"+
+//                     JSON.parse(msg.body).content1+ "</h4>");
+//             });
+//             this.subscribe('/send/to/'+sid, function(msg) {
+//                 $("#to").prepend(
+//                     "<h4>" + JSON.parse(msg.body).sendid +":"+
+//                     JSON.parse(msg.body).content1
+//                     + "</h4>");
+//             });
+//         });
+//     }
+// }

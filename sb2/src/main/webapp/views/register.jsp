@@ -25,7 +25,10 @@
                     success: (result) => {
                         let msg = '사용 가능합니다.';
                         if (result == '0') {
+                            $('#check_msg').css('color', 'red');
                             msg = '사용 불가능합니다.';
+                        } else {
+                            $('#check_msg').css('color', 'black');
                         }
                         $('#check_msg').html(msg);
                     }
@@ -33,13 +36,20 @@
             });
 
             $('#register_form > #btn_register').click(function() {
-
+                register.send();
             });
+        },
+        send:function() {
+            $('#register_form').attr({
+                'method': 'post',
+                'action': this.url
+            });
+            $('#register_form').submit();
         }
     }
     $(function(){
-        reg.init("<c:url value="/registerImpl"/>");
-        register.init();
+        // reg.init();
+        register.init("<c:url value="/registerImpl"/>");
     });
 </script>
 <div class="container">

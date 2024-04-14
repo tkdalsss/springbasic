@@ -3,6 +3,7 @@ package com.hana.controller;
 import com.github.pagehelper.PageInfo;
 import com.hana.app.data.dto.CustDto;
 import com.hana.app.service.CustService;
+import com.hana.util.StringEnc;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -68,6 +69,7 @@ public class CustController {
         List<CustDto> custList = null;
         try {
             custList = custService.get();
+            custList.stream().forEach(c -> c.setName(StringEnc.decryptor(c.getName())));
             model.addAttribute("custs", custList);
         } catch (Exception e) {
             throw new RuntimeException(e);

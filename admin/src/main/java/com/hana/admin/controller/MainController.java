@@ -22,9 +22,13 @@ public class MainController {
     @Value("${app.url.server-url}")
     String serverUrl;
 
+    @Value("${app.url.chart-url}")
+    String chartUrl;
+
     @RequestMapping("/")
     public String main(Model model) {
-        model.addAttribute("chartUrl", serverUrl);
+        model.addAttribute("chartUrl", chartUrl);
+        model.addAttribute("serverUrl", serverUrl);
         return "index";
     }
 
@@ -41,7 +45,10 @@ public class MainController {
         try {
             checkDto = adminService.get(adminDto.getId());
             if (checkDto == null) throw new Exception();
+
+            // 나중에 암호화 진행
             if (!adminDto.getPwd().equals(checkDto.getPwd())) throw new Exception();
+
             log.info("Login Success...");
             session.setAttribute("admin", checkDto);
 

@@ -26,7 +26,8 @@ logging:
 
 app:
   url:
-    server-url: http://172.16.21.91:81
+#    server-url: http://172.16.20.55:81
+    server-url: http://192.168.219.155:81
   dir:
     imgdir: file:///Users/tkdalsss/Desktop/project/imgs/
     logdir: /Users/tkdalsss/Desktop/project/logs/

@@ -9,6 +9,8 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -20,6 +22,8 @@ public class MsgController {
     public void receiveall(Msg msg, SimpMessageHeaderAccessor headerAccessor) {
         log.info(msg.toString());
         // /send 를 기다리고 있는 모든 대상에게 msg 전달
+        msg.setTime(LocalDateTime.now());
+
         template.convertAndSend("/send", msg);
     }
 
@@ -27,6 +31,8 @@ public class MsgController {
     public void receiveme(Msg msg, SimpMessageHeaderAccessor headerAccessor) {
         log.info(msg.toString());
         String id = msg.getSendid();
+        msg.setTime(LocalDateTime.now());
+
         template.convertAndSend("/send/" + id, msg);
     }
 
@@ -38,6 +44,8 @@ public class MsgController {
 //        log.info(msg.toString());
         log.info(target);
 
-        template.convertAndSend("/sent/to/" + target, msg);
+        msg.setTime(LocalDateTime.now());
+
+        template.convertAndSend("/send/to/" + target, msg);
     }
 }

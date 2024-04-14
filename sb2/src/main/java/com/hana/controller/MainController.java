@@ -4,6 +4,7 @@ import com.hana.app.data.dto.BoardDto;
 import com.hana.app.data.dto.CustDto;
 import com.hana.app.service.BoardService;
 import com.hana.app.service.CustService;
+import com.hana.util.StringEnc;
 import com.hana.util.WeatherUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,7 @@ public class MainController {
 
     private final CustService custService;
     private final BoardService boardService;
+    private final BCryptPasswordEncoder encoder;
 
     @Value("${app.key.wkey}")
     String wkey;
@@ -69,7 +72,7 @@ public class MainController {
             if (custDto == null) {
                 throw new Exception();
             }
-            if (!custDto.getPwd().equals(pwd)) {
+            if (!encoder.matches(pwd, custDto.getPwd())) {
                 log.info("Login Failed...");
 //                model.addAttribute("center", "loginFail");
                 throw new Exception();
@@ -105,14 +108,17 @@ public class MainController {
         log.info(custDto.getId() + ' ' + custDto.getPwd() + ' ' + custDto.getName() + ' ');
 
         try {
+            custDto.setPwd(encoder.encode(custDto.getPwd()));
+            custDto.setName(StringEnc.encryptor(custDto.getName()));
             custService.add(custDto);
             session.setAttribute("id", custDto.getId());
         } catch (Exception e) {
             model.addAttribute("center", "registerfail");
+            return "index";
         }
 
-        model.addAttribute("center", "center");
-        return "index";
+//        model.addAttribute("center", "center");
+        return "redirect:/";
     }
 
     @ResponseBody

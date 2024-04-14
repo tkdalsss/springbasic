@@ -30,4 +30,6 @@ app:
     imgUploadDir: /Users/tkdalsss/Desktop/project/imgs/
     logdir: file:///Users/tkdalsss/Desktop/project/logs/
   url:
-    server-url: http://172.16.20.55:81
+#    server-url: http://172.16.20.55:81
+    server-url: http://192.168.219.155:81
+    chart-url: http://127.0.0.1

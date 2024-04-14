@@ -34,8 +34,8 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     <%-- Web Socket --%>
-    <script src="<c:url value="/webjars/sockjs-client/sockjs.min.js"/>"></script>
-    <script src="<c:url value="/webjars/stomp-websocket/stomp.min.js"/>"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
     <style>
         .container {
@@ -48,6 +48,85 @@
     </style>
 </head>
 <body>
+<style>
+    #msgDiv {
+        /*background-color: #2a96a5;*/
+        /*width: 100px;*/
+        color: black;
+    }
+    #alert {
+        display: flex;
+        align-items: center;
+    }
+</style>
+<script>
+    let websocket = {
+        stompClient:null,
+        messages: [],
+        init:function() {
+            let sid = '${sessionScope.id}';
+            let socket = new SockJS('http://192.168.219.155:81/ws');
+            let blank = "";
+            // websocket.messages = sessionStorage.getItem("messages");
+            this.stompClient = Stomp.over(socket);
+
+            this.stompClient.connect({}, function(frame) {
+                // websocket.setConnected(true);
+                console.log('Connected: ' + frame);
+                this.subscribe('/send', function(msg) {
+                    console.log(msg);
+                    blank = '공지사항 : ' + JSON.parse(msg.body).content1;
+                    $('#msgDiv').text(blank);
+                    websocket.messages.push(msg);
+                    $('#msgCnt').text(websocket.messages.length);
+                    // session 에 저장하고
+                    websocket.display();
+                });
+                this.subscribe('/send/'+ sid, function(msg) {
+                    $("#me").prepend(
+                        "<h4>" + JSON.parse(msg.body).sendid +":"+
+                        JSON.parse(msg.body).content1+ "</h4>");
+                    websocket.messages.push(msg);
+                    $('#msgCnt').text(websocket.messages.length);
+                    // session 에 저장하고
+                    websocket.display();
+                });
+                this.subscribe('/send/to/'+sid, function(msg) {
+                    blank = JSON.parse(msg.body).sendid + "님이 " + JSON.parse(msg.body).receiveid + "님에게 : " +
+                        JSON.parse(msg.body).content1;
+                    $('#msgDiv').text(blank);
+                    websocket.messages.push(msg);
+                    $('#msgCnt').text(websocket.messages.length);
+                    // session 에 저장하고
+                    websocket.display();
+                });
+            });
+            // sessionStorage.setItem("messages", websocket.messages);
+        },
+        display: function() {
+            let result = '';
+            websocket.messages.forEach((item) => {
+                let time = JSON.parse(item.body).time;
+                let content = JSON.parse(item.body).receiveid === null ? "전체 공지사항 : " :
+                    JSON.parse(item.body).sendid + "님이 " + JSON.parse(item.body).receiveid + "에게 : ";
+                result += '<a class="dropdown-item d-flex align-items-center" href="#">' +
+                        '<div class="dropdown-list-image mr-3">' +
+                        '<div class="status-indicator bg-success"></div>' +
+                        '</div>' +
+                        '<div class="font-weight-bold">' +
+                        '<div class="text-truncate">' + content + JSON.parse(item.body).content1 +
+                        '<div class="small text-gray-500">' +
+                        time.split("T")[0] + " " + time.split("T")[1].split(".")[0] + // 시간
+                        '</div>' +
+                        '</div>' + '</a>';
+            });
+            $('#msgs').html(result);
+        }
+    }
+    $(function() {
+        websocket.init();
+    })
+</script>
 <div class="jumbotron text-center" style="margin-bottom:0">
     <h1><spring:message code="site.title" arguments="aa,aa"/></h1>
     <h5><spring:message code="site.phone"/></h5>
@@ -66,8 +145,28 @@
     </c:when>
     <c:otherwise>
         <ul class="nav justify-content-end">
+            <li id="alert" class="col-sm-7">
+                <MARQUEE scrollamount="7" id="msgDiv"></MARQUEE>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/myPage/${id}" />">${id}</a>
+            </li>
+            <li class="nav-item dropdown no-arrow mx-1">
+                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-envelope fa-fw"></i>
+                    <!-- Counter - Messages -->
+                    <span class="badge badge-danger badge-counter" id="msgCnt">0</span>
+                </a>
+                <!-- Dropdown - Messages -->
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                     aria-labelledby="messagesDropdown">
+                    <h6 class="dropdown-header">
+                        Message Center
+                    </h6>
+                    <div id="msgs"></div>
+                    <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/logout" />">LOGOUT</a>
